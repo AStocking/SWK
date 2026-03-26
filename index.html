@@ -12,7 +12,14 @@
 <!-- OpenLayers & QGIS2Web styles -->
 <link rel="stylesheet" href="./resources/ol.css">
 <link rel="stylesheet" href="resources/fontawesome-all.min.css">
-<link href="resources/photon-geocoder-autocomplete.min.css" rel="stylesheetight: 100%;
+<link href="resources/photon-geocoder-autocomplete.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+<link rel="stylesheet" href="./resources/qgis2web.css">
+
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
     font-family: Arial, sans-serif;
     background-color: #ffffff;
 }
@@ -34,7 +41,7 @@
     height: 100%;
 }
 
-/* ===== Title bar with buttons ===== */
+/* ===== Title Bar ===== */
 .map-title {
     font-size: 18px;
     font-weight: bold;
@@ -66,7 +73,7 @@
     width: 100%;
 }
 
-/* ===== Side image ===== */
+/* ===== Side Image ===== */
 .side-image {
     flex: 1;
     border: 1px solid #ccc;
@@ -74,12 +81,13 @@
     background-color: #f8f8f8;
     overflow-y: auto;
 }
+
 .side-image img {
     width: 100%;
     height: auto;
 }
 
-/* ===== Popups ===== */
+/* ===== Popup Boxes ===== */
 .popup-info {
     position: absolute;
     top: 60px;
@@ -106,7 +114,7 @@
 }
 
 #crime-popup button { background-color: #dc3545; }
-#flytipping-popup button { background-color: #ff8800; color: #fff; }
+#flytipping-popup button { background-color: #ff8800; }
 
 /* ===== Responsive ===== */
 @media (max-width: 800px) {
@@ -128,7 +136,7 @@
 
 <div class="container">
 
-    <!-- MAP -->
+    <!-- MAP SECTION -->
     <div class="map-wrapper">
 
         <div class="map-title">
@@ -144,52 +152,48 @@
             </div>
         </div>
 
-        <!-- ===== POPUPS ===== -->
-
-        <!-- UPDATED CRIME POPUP -->
+        <!-- ===== UPDATED CRIME POPUP ===== -->
         <div id="crime-popup" class="popup-info">
             <h3>🚨 Crime Summary for Smethwick (2025–Jan 2026)</h3>
 
-            <ul style="padding-left: 18px;">
-
+            <ul style="padding-left:18px;">
                 <li>
-                    <span style="color:#d80000; font-weight:bold;">🔴 High Risk – Violence & Sexual Offences</span><br>
-                    • Nearly 2,000 incidents — largest category.<br>
-                    • Hotspots: Bearwood Rd, Ethel St, Three Shires Oak Rd, Dunsford Rd.
+                    <span style="color:#d80000;font-weight:bold;">🔴 High Risk – Violence & Sexual Offences</span><br>
+                    • Nearly 2,000 incidents<br>
+                    • Hotspots: Bearwood Rd, Ethel St, Three Shires Oak Rd, Dunsford Rd
                 </li><br>
 
                 <li>
-                    <span style="color:#ff8800; font-weight:bold;">🟠 Medium‑High Risk – Vehicle Crime</span><br>
-                    • Concentrated near retail/parking areas, Lewisham Rd, Richmond Rd, Bridge St South.
+                    <span style="color:#ff8800;font-weight:bold;">🟠 Medium‑High Risk – Vehicle Crime</span><br>
+                    • Retail areas, parking sites, Lewisham Rd, Richmond Rd, Bridge St South
                 </li><br>
 
                 <li>
-                    <span style="color:#ffb400; font-weight:bold;">🟡 Medium Risk – Criminal Damage & Arson</span><br>
-                    • Micro‑clusters: Clent View, Hall Rd, Montague Rd, Oliver Rd, Grove Lane.
+                    <span style="color:#ffb400;font-weight:bold;">🟡 Medium Risk – Criminal Damage & Arson</span><br>
+                    • Clusters at Clent View, Hall Rd, Montague Rd, Oliver Rd, Grove Lane
                 </li><br>
 
                 <li>
-                    <span style="color:#2c83ff; font-weight:bold;">🔵 Ongoing Issue – Anti‑Social Behaviour</span><br>
-                    • Focused around transport hubs & adjoining streets.<br>
-                    • Likely increase from spring 2026.
+                    <span style="color:#2c83ff;font-weight:bold;">🔵 Ongoing Issue – Anti‑Social Behaviour</span><br>
+                    • Transport hubs, Anderson Rd, Adkins Lane<br>
+                    • Likely increase spring 2026
                 </li><br>
 
                 <li>
-                    <span style="color:#008f39; font-weight:bold;">🟢 Persistent Issue – Drug‑Related Activity</span><br>
-                    • Spread across residential streets incl. Adkins Ln, Anderson Rd, Capethorn Rd, Cranford St, Cape Hill.
+                    <span style="color:#008f39;font-weight:bold;">🟢 Persistent Issue – Drug‑Related Activity</span><br>
+                    • Residential areas: Adkins Ln, Anderson Rd, Capethorn Rd, Cranford St, Cape Hill
                 </li><br>
 
                 <li>
-                    <span style="color:#666; font-weight:bold;">⚪ Overall Trend</span><br>
-                    • Slight monthly rise expected: ~415 → ~420 incidents by summer 2026.
+                    <span style="color:#666;font-weight:bold;">⚪ Overall Trend</span><br>
+                    • Gradual rise expected (415 → 420 per month by summer 2026)
                 </li>
-
             </ul>
 
             <button>Close</button>
         </div>
 
-        <!-- FLYTIPPING POPUP (unchanged) -->
+        <!-- FLY TIPPING POPUP (unchanged) -->
         <div id="flytipping-popup" class="popup-info">
             <h3>🗑️ Flytipping Summary – Dummy Data</h3>
             <ul>
@@ -205,35 +209,39 @@
 
     <!-- SIDE PANEL -->
     <div class="side-image">
-        <div style="font-weight:bold; text-align:center; margin-bottom:5px;">ONS Profile</div>
+        <div style="font-weight:bold;text-align:center;margin-bottom:5px;">ONS Profile</div>
         <img src="resources/SWKONS.png" alt="Smethwick overview">
     </div>
 
 </div>
 
-<!-- ===== QGIS2WEB & OpenLayers Scripts ===== -->
-<script src="resources/qgisources/photon-geocoder-autocomplete.min.js</script>
+<!-- QGIS2WEB / OL SCRIPTS (required order) -->
+<script src="resources/qgis2web_expressions.js"></script>
+<scriptTownBuildings_2Jan26_3.js</script>
+<script src="ickTownFlyTipping_4.js</script>
+layers/SmethwickRoads_5.js</script>
+<scriptCommunityFacilityWorks_6.js</script>
+layers/CemeteryPlannedWorks_7.js</script>
+<script src="layers/SmethwickTown_
 
-<!-- ===== Layers ===== -->
-layers/SmethwickCanals_0.js</script>
-layers/CemeterySmethwick_1.js</script>
-<script src="layers/SmethwickTownBuildings_2.js"></script>
-<script src="layers/SmethwickTownCrimeJan25Jan26_3.js"></script>
-<script src="layers/SmethwickTownFlyTipping_4.js"></script>
-<script src="layers/SmethwickRoads_5.js"></script>
-<script src="layers/CommunityFacilityWorks_6.js"></script>
-<script src="layers/CemeterywickCanals_0_style.js"></script>
+<!-- STYLES -->
+styles/SmethwickCanals_0_style.js</script>
 <script src="styles/CemeterySmethwick_1_style.js"></script>
-<script src="styles/SmethwickTownBuildings_2_style.js"></script>
-<script src="styles/SmethwickTownCrimeJan25Jan26_3_style.js"></script>
-<script src="styles/SmethwickTownFlyTipping_4_style.js"></script>
-<script src="styles/SmethwickRoads_5_style.js"></script>
-<script src="styles/CommunityFacilityWorks_6_style.js"></script>
-<script src="styles/CemeteryPlannedWorks_7_style.js"></script>
-<script src="styles/SmethwickTown_8_style.js"></script>
+<script src="styles/SmethwickTownBuildingsSmethwickTownCrimeJan25Jan26_3_style.js</script>
+styles/SmethwickTownFlyTipping_4_style.js</script>
+styles/SmethwickRoads_5_style.js</script>
+styles/CommunityFacilityWorks_6_style.js</script>
+styles/CemeteryPlannedWorks_7_style.js</script>
+styles/SmethwickTown_8_style.js</script>
 
-<script src="./layers/layers.js" type="text/javascript"></script>
-ument.getElementById(buttonId);
+./layers/layers.js</script>
+./resources/Autolinker.min.js</script>
+./resources/qgis2web.js</script>
+
+<!-- POPUP LOGIC -->
+<script>
+function setupPopup(buttonId, popupId) {
+    const button = document.getElementById(buttonId);
     const popup = document.getElementById(popupId);
     const closeBtn = popup.querySelector("button");
 
