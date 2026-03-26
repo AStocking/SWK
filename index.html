@@ -47,7 +47,7 @@ html, body {
     border: 1px solid #ccc;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
     z-index: 1000;
     position: relative;
 }
@@ -63,19 +63,19 @@ html, body {
     background: #ffffff;
     border: 1px solid #ccc;
     cursor: pointer;
-    position: relative;
+    position: relative; /* popup will be positioned absolutely relative to this */
 }
 
 /* ===== Map ===== */
 #map {
     flex: 1;
     width: 100%;
-    min-height: 400px; /* ensure visible */
+    min-height: 400px; /* ensures map is visible */
 }
 
 /* ===== Side image ===== */
 .side-image {
-    flex: 1.2;  /* larger than before */
+    flex: 1.2;
     max-width: 400px;
     border: 1px solid #ccc;
     padding: 10px;
@@ -90,8 +90,8 @@ html, body {
 
 /* ===== Popups ===== */
 .popup-info {
-    position: absolute; /* relative to button */
-    top: 100%;          /* below button */
+    position: absolute;
+    top: calc(100% + 5px); /* directly below the button */
     left: 0;
     width: 400px;
     max-height: 400px;
@@ -126,11 +126,6 @@ html, body {
         height: 50vh;
         width: 100%;
     }
-    .popup-info {
-        width: 90%;
-        left: 5%;
-        top: auto;
-    }
 }
 </style>
 </head>
@@ -143,24 +138,24 @@ html, body {
 
         <div class="map-title">
             Smethwick Map
-            <span id="crime-button" title="Crime Data">🛡️
-                <div id="crime-popup" class="popup-info">
-                    <h3>Crime Summary for Smethwick (2025–Jan 2026)</h3>
-                    <p>Analysis of recorded incidents across Smethwick shows that crime levels remain consistently high, ...</p>
-                    <button>Close</button>
-                </div>
-            </span>
-            <span id="flytipping-button" title="Flytipping Data">🗑️
-                <div id="flytipping-popup" class="popup-info">
-                    <h3>Executive Summary – Smethwick (2025–2026)</h3>
-                    <p><strong>Overall Situation</strong><br>
-                    Smethwick is one of the highest volume fly tipping zones in the dataset, showing persistent repeat dumping...</p>
-                    <button>Close</button>
-                </div>
-            </span>
+            <span id="crime-button" title="Crime Data">🛡️</span>
+            <span id="flytipping-button" title="Flytipping Data">🗑️</span>
         </div>
 
         <div id="map"></div>
+
+        <!-- POPUPS -->
+        <div id="crime-popup" class="popup-info">
+            <h3>Crime Summary for Smethwick (2025–Jan 2026)</h3>
+            <p>Analysis of recorded incidents across Smethwick shows that crime levels remain consistently high...</p>
+            <button>Close</button>
+        </div>
+
+        <div id="flytipping-popup" class="popup-info">
+            <h3>Executive Summary – Smethwick (2025–2026)</h3>
+            <p>Smethwick is one of the highest volume fly tipping zones in the dataset...</p>
+            <button>Close</button>
+        </div>
 
     </div>
 
@@ -175,17 +170,17 @@ html, body {
 <script src="resources/ol.js"></script>
 
 <script>
-// Map init example (update layers as needed)
+// Map init (update layers as needed)
 var map = new ol.Map({
     target: 'map',
     layers: [],
     view: new ol.View({
-        center: ol.proj.fromLonLat([-1.998, 52.5]), // Smethwick
+        center: ol.proj.fromLonLat([-1.998, 52.5]), // Smethwick coords
         zoom: 14
     })
 });
 
-// Popup toggle logic below button
+// Function to toggle popup below button
 function setupPopup(buttonId, popupId) {
     const button = document.getElementById(buttonId);
     const popup = document.getElementById(popupId);
@@ -193,23 +188,30 @@ function setupPopup(buttonId, popupId) {
 
     button.addEventListener("click", e => {
         e.stopPropagation();
-        // hide others
+        const rect = button.getBoundingClientRect();
+        const containerRect = button.closest('.map-wrapper').getBoundingClientRect();
+
+        popup.style.top = (rect.bottom - containerRect.top + 5) + "px";
+        popup.style.left = (rect.left - containerRect.left) + "px";
+
+        // hide other popups
         document.querySelectorAll(".popup-info").forEach(p => {
             if(p !== popup) p.style.display = "none";
         });
+
         popup.style.display = (popup.style.display === "block") ? "none" : "block";
     });
 
     closeBtn.addEventListener("click", () => popup.style.display = "none");
 }
 
-// Setup popups
+// Setup both popups
 setupPopup("crime-button","crime-popup");
 setupPopup("flytipping-button","flytipping-popup");
 
 // Click outside to close
 document.addEventListener("click", e => {
-    if(!e.target.closest(".map-title span")) {
+    if(!e.target.closest(".map-title span") && !e.target.closest(".popup-info")) {
         document.querySelectorAll(".popup-info").forEach(p => p.style.display = "none");
     }
 });
