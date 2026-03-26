@@ -7,10 +7,9 @@
 <title>Smethwick Map – Crime & Flytipping</title>
 
 <!-- OpenLayers & QGIS2Web styles -->
-<link rel="stylesheet" href="./resources/oll.min.css
-<link href="oton-geocoder-autocomplete.min.css
-./resources/ol-layerswitcher.css
-./resources/qgis2web.css
+<link rel="stylesheet" href="resources/ol.css">
+<link rel="stylesheet" href="resources/fontawesome-all.minl/ol-layerswitcher.css
+resources/qgis2web.css
 
 <style>
 html, body {
@@ -37,7 +36,7 @@ html, body {
     height: 100%;
 }
 
-/* ===== Title bar with buttons ===== */
+/* ===== Title bar ===== */
 .map-title {
     font-size: 18px;
     font-weight: bold;
@@ -69,7 +68,7 @@ html, body {
     width: 100%;
 }
 
-/* ===== Side image ===== */
+/* ===== Side panel ===== */
 .side-image {
     flex: 1;
     border: 1px solid #ccc;
@@ -109,7 +108,7 @@ html, body {
 }
 
 #crime-popup button { background-color: #dc3545; }
-#flytipping-popup button { background-color: #ff8800; color: #fff; }
+#flytipping-popup button { background-color: #ff8800; }
 
 /* ===== Responsive ===== */
 @media (max-width: 800px) {
@@ -165,30 +164,30 @@ html, body {
 
                 <li>
                     <span style="color:#ffb400;font-weight:bold;">🟡 Medium Risk – Criminal Damage & Arson</span><br>
-                    • Clusters at Clent View, Hall Rd, Montague Rd, Oliver Rd, Grove Lane
+                    • Hotspots: Clent View, Hall Rd, Montague Rd, Oliver Rd, Grove Lane
                 </li><br>
 
                 <li>
                     <span style="color:#2c83ff;font-weight:bold;">🔵 Ongoing Issue – Anti‑Social Behaviour</span><br>
                     • Transport hubs, Anderson Rd, Adkins Lane<br>
-                    • Likely increase spring 2026
+                    • Expected rise spring 2026
                 </li><br>
 
                 <li>
                     <span style="color:#008f39;font-weight:bold;">🟢 Persistent Issue – Drug‑Related Activity</span><br>
-                    • Residential areas: Adkins Ln, Anderson Rd, Capethorn Rd, Cranford St, Cape Hill
+                    • Residential streets: Adkins Ln, Anderson Rd, Capethorn Rd, Cranford St, Cape Hill
                 </li><br>
 
                 <li>
                     <span style="color:#666;font-weight:bold;">⚪ Overall Trend</span><br>
-                    • Gradual rise expected (415 → 420 per month by summer 2026)
+                    • Slow rise projected (415 → 420 per month by summer 2026)
                 </li>
             </ul>
 
             <button>Close</button>
         </div>
 
-        <!-- FLYTIPPING POPUP (unchanged) -->
+        <!-- FLYTIPPING POPUP -->
         <div id="flytipping-popup" class="popup-info">
             <h3>🗑️ Flytipping Summary – Dummy Data</h3>
             <ul>
@@ -204,35 +203,41 @@ html, body {
 
     <!-- SIDE PANEL -->
     <div class="side-image">
-        <div style="font-weight:bold; text-align:center; margin-bottom:5px;">ONS Profile</div>
+        <div style="font-weight:bold;text-align:center;margin-bottom:5px;">ONS Profile</div>
         <img src="resources/SWKONS.png" alt="Smethwick overview">
     </div>
 
 </div>
 
-<!-- ===== QGIS2WEB & OpenLayers Scripts ===== -->
-<script src="resourcesces/ol-layerswitcher.js</script>
+<!-- ===== QGIS2WEB & OpenLayers Scripts (DO NOT CHANGE ORDER) ===== -->
+<script src="resources-layerswitcher.js</script>
 resources/photon-geocoder-autocomplete.min.js</script>
 
 <!-- ===== Layers ===== -->
-<script src="layers/SmethwickCanals_0.js"></script>
-<script src="layers/CemeterySmethwick_1.jswnBuildings_2.js</script>
-<script src="layers/SmethwickTownCrimeJan25Jan26_3.js"></script>
-<script src="layers/SmethwickTownFlyTipping_4.js"></script>
-<script src="layers/SmethwickRoads_5.js"></script>
-<script src="layers/CommunityFacilitypt>
-<script src="layers/Sm.js</script>
+layers/SmethwickCanals_0.js</script>
+layers/CemeterySmethwick_1.js</script>
+layers/SmethwickTownBuildings_2.js</script>
+layers/SmethwickTownCrimeJan25Jan26_3.js</script>
+layers/SmethwickTownFlyTipping_4.js</script>
+layers/SmethwickRoads_5.js</script>
+layers/CommunityFacilityWorks_6.js</script>
+layers/CemeteryPlannedWorks_7.js</script>
+layers/SmethwickTown_8.js</script>
 
 <!-- ===== Styles ===== -->
 styles/SmethwickCanals_0_style.js</script>
-<script src="styles/CemeterySmethwick_1_style.js"></script>
-<script src="styles/SmethwickTownBuildings_2_style.js"></script>
-<script src="styles/SmethwickTownCrimeJan25Jan26_3_style.js"></script>
-<script src="styles/SmethwickTownFlyTipping_4_style.js"></script>
-<script src="styles/SmethwickRoads_5_style.js"></script>
-<script src="styles/CommunityFacilityWorks_6_style.js"></script>
-<script src="styles/CemeteryPlannedWorks_utolinker.min.js</script>
-./resources/qgis2web.js</script>
+styles/CemeterySmethwick_1_style.js</script>
+styles/SmethwickTownBuildings_2_style.js</script>
+styles/SmethwickTownCrimeJan25Jan26_3_style.js</script>
+styles/SmethwickTownFlyTipping_4_style.js</script>
+styles/SmethwickRoads_5_style.js</script>
+styles/CommunityFacilityWorks_6_style.js</script>
+styles/CemeteryPlannedWorks_7_style.js</script>
+styles/SmethwickTown_8_style.js</script>
+
+layers/layers.js</script>
+resources/Autolinker.min.js</script>
+resources/qgis2web.js</script>
 
 <!-- ===== Popup Toggle Logic ===== -->
 <script>
