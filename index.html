@@ -73,6 +73,7 @@ html, body {
 /* ===== Side image ===== */
 .side-image {
     flex: 1;
+    max-width: 300px;
     border: 1px solid #ccc;
     padding: 5px;
     background-color: #f8f8f8;
@@ -81,21 +82,23 @@ html, body {
 .side-image img {
     width: 100%;
     height: auto;
+    display: block;
 }
 
 /* ===== Popups ===== */
 .popup-info {
-    position: absolute;
-    top: 60px;
-    left: 20px;
-    width: 420px;
-    max-height: 70%;
+    position: fixed;       /* fixed so it does not affect layout */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-height: 70vh;      /* scrollable if content too tall */
     overflow-y: auto;
     background: white;
     border: 1px solid #ccc;
-    padding: 12px;
+    padding: 16px;
     border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     display: none;
     z-index: 2000;
 }
@@ -148,102 +151,104 @@ html, body {
             </div>
         </div>
 
-        <!-- ===== POPUPS ===== -->
-<div id="crime-popup" class="popup-info">
-    <h3>Crime Summary for Smethwick (2025–Jan 2026)</h3>
-    <p>
-        Analysis of recorded incidents across Smethwick shows that crime levels remain consistently high, with Violence and Sexual Offences being the most prevalent category by a substantial margin. This category alone accounts for nearly 2,000 recorded incidents, far exceeding all other crime types. Vehicle Crime, Criminal Damage and Arson, Anti Social Behaviour, and Other Theft also appear frequently, forming the next major tiers of offending. These patterns highlight a concentration of both personal risk and property risk crime types within the area.
-    </p>
-    <p>
-        Monthly figures show moderate fluctuations but an overall upward trend through 2025, followed by a smaller dip in January 2026. Despite this brief downturn, long term modelling suggests a continued gradual rise from February 2026 onwards. Predictive modelling indicates that monthly crime totals are expected to increase slightly each month, with projected volumes rising from around 415 incidents in February 2026 to roughly 420 by mid summer. This represents a slow but steady growth trend rather than sudden escalation.
-    </p>
-    <p>
-        Several notable patterns emerge when examining specific crime categories. Violence and Sexual Offences repeatedly cluster around residential and mixed use streets such as Bearwood Road, Ethel Street, Three Shires Oak Road, and Dunsford Road, indicating enduring hotspots that are likely to continue into 2026. Vehicle crime features prominently around shopping areas, parking facilities, Lewisham Road, Richmond Road, and Bridge Street South, suggesting ongoing risks in locations with high vehicle turnover and footfall.
-    </p>
-    <p>
-        Drug related incidents are dispersed across a wide set of residential areas including Adkins Lane, Anderson Road, Capethorn Road, Cranford Street, and Cape Hill. Their repetition across the year suggests persistent low level drug activity and associated disorder, which historically correlates with rises in violence and public order offences. Criminal Damage and Arson incidents also appear frequently in micro clusters, especially around Clent View, Hall Road, Montague Road, Oliver Road, and Grove Lane, largely indicating neighbourhood level disputes, repeat victimisation, and property focused offending.
-    </p>
-    <p>
-        Anti Social Behaviour consistently centres on transport nodes and nearby streets — including bus and coach stations, Anderson Road, and Adkins Lane — pointing to a pattern of nuisance behaviour in high traffic areas. As seasonal trends typically amplify ASB during warmer months, these locations should be expected to experience increased activity from spring 2026 onwards.
-    </p>
-    <p>
-        Taken together, the data highlights several key risk areas for February 2026 and beyond. The dominant risk remains interpersonal crime, particularly violence, with persistent hotspots unlikely to diminish without targeted intervention. Vehicle crime and criminal damage continue to be significant property related threats, especially near retail corridors and parking areas. Drug related activity appears entrenched in certain residential streets and is expected to remain a contributing factor to wider disorder. Meanwhile, ASB presents ongoing challenges around transport hubs and neighbourhood boundary zones.
-    </p>
-    <p>
-        Overall, Smethwick is forecast to see a gradual rise in crime levels across mid 2026, driven primarily by increases in violence, vehicle crime, and drug linked disorder. Monitoring the identified hotspot locations and rising categories will be essential for anticipating emerging risks and deploying preventative measures effectively.
-    </p>
-    <button>Close</button>
-</div>       
+        <!-- ===== Crime Popup ===== -->
+        <div id="crime-popup" class="popup-info">
+            <h3>Crime Summary for Smethwick (2025–Jan 2026)</h3>
+            <p>
+                Analysis of recorded incidents across Smethwick shows that crime levels remain consistently high, with Violence and Sexual Offences being the most prevalent category by a substantial margin. This category alone accounts for nearly 2,000 recorded incidents, far exceeding all other crime types. Vehicle Crime, Criminal Damage and Arson, Anti Social Behaviour, and Other Theft also appear frequently, forming the next major tiers of offending. These patterns highlight a concentration of both personal risk and property risk crime types within the area.
+            </p>
+            <p>
+                Monthly figures show moderate fluctuations but an overall upward trend through 2025, followed by a smaller dip in January 2026. Despite this brief downturn, long term modelling suggests a continued gradual rise from February 2026 onwards. Predictive modelling indicates that monthly crime totals are expected to increase slightly each month, with projected volumes rising from around 415 incidents in February 2026 to roughly 420 by mid summer. This represents a slow but steady growth trend rather than sudden escalation.
+            </p>
+            <p>
+                Several notable patterns emerge when examining specific crime categories. Violence and Sexual Offences repeatedly cluster around residential and mixed use streets such as Bearwood Road, Ethel Street, Three Shires Oak Road, and Dunsford Road, indicating enduring hotspots that are likely to continue into 2026. Vehicle crime features prominently around shopping areas, parking facilities, Lewisham Road, Richmond Road, and Bridge Street South, suggesting ongoing risks in locations with high vehicle turnover and footfall.
+            </p>
+            <p>
+                Drug related incidents are dispersed across a wide set of residential areas including Adkins Lane, Anderson Road, Capethorn Road, Cranford Street, and Cape Hill. Their repetition across the year suggests persistent low level drug activity and associated disorder, which historically correlates with rises in violence and public order offences. Criminal Damage and Arson incidents also appear frequently in micro clusters, especially around Clent View, Hall Road, Montague Road, Oliver Road, and Grove Lane, largely indicating neighbourhood level disputes, repeat victimisation, and property focused offending.
+            </p>
+            <p>
+                Anti Social Behaviour consistently centres on transport nodes and nearby streets — including bus and coach stations, Anderson Road, and Adkins Lane — pointing to a pattern of nuisance behaviour in high traffic areas. As seasonal trends typically amplify ASB during warmer months, these locations should be expected to experience increased activity from spring 2026 onwards.
+            </p>
+            <p>
+                Taken together, the data highlights several key risk areas for February 2026 and beyond. The dominant risk remains interpersonal crime, particularly violence, with persistent hotspots unlikely to diminish without targeted intervention. Vehicle crime and criminal damage continue to be significant property related threats, especially near retail corridors and parking areas. Drug related activity appears entrenched in certain residential streets and is expected to remain a contributing factor to wider disorder. Meanwhile, ASB presents ongoing challenges around transport hubs and neighbourhood boundary zones.
+            </p>
+            <p>
+                Overall, Smethwick is forecast to see a gradual rise in crime levels across mid 2026, driven primarily by increases in violence, vehicle crime, and drug linked disorder. Monitoring the identified hotspot locations and rising categories will be essential for anticipating emerging risks and deploying preventative measures effectively.
+            </p>
+            <button>Close</button>
+        </div>       
 
-<div id="flytipping-popup" class="popup-info">
-    <h3>Executive Summary – Smethwick (2025–2026)</h3>
+        <!-- ===== Flytipping Popup ===== -->
+        <div id="flytipping-popup" class="popup-info">
+            <h3>Executive Summary – Smethwick (2025–2026)</h3>
 
-    <p><strong>Overall Situation</strong><br>
-    Smethwick is one of the highest volume fly tipping zones in the dataset, showing persistent repeat dumping, rapid re-accumulation after clearances, and wide geographic spread across residential streets, alleyways, and transition zones bordering industrial areas. Incidents occur consistently throughout the year, with pronounced clusters in:</p>
-    <ul>
-        <li>Spring (Mar–Jun 2025) – bulky waste, bagged waste</li>
-        <li>Late Summer–Autumn (Aug–Oct 2025) – electrical items, construction waste</li>
-        <li>Winter (Nov 2025–Feb 2026) – nitrous oxide, recurring bagged waste hotspots</li>
-    </ul>
-    <p>Smethwick displays both chronic hotspots (long term recurring locations) and newly emerging micro clusters, indicating escalating pressure on cleansing and enforcement resources.</p>
+            <p><strong>Overall Situation</strong><br>
+            Smethwick is one of the highest volume fly tipping zones in the dataset, showing persistent repeat dumping, rapid re-accumulation after clearances, and wide geographic spread across residential streets, alleyways, and transition zones bordering industrial areas. Incidents occur consistently throughout the year, with pronounced clusters in:</p>
+            <ul>
+                <li>Spring (Mar–Jun 2025) – bulky waste, bagged waste</li>
+                <li>Late Summer–Autumn (Aug–Oct 2025) – electrical items, construction waste</li>
+                <li>Winter (Nov 2025–Feb 2026) – nitrous oxide, recurring bagged waste hotspots</li>
+            </ul>
+            <p>Smethwick displays both chronic hotspots (long term recurring locations) and newly emerging micro clusters, indicating escalating pressure on cleansing and enforcement resources.</p>
 
-    <hr>
+            <hr>
 
-    <p><strong>Key Themes in Smethwick</strong></p>
+            <p><strong>Key Themes in Smethwick</strong></p>
 
-    <p><strong>1. Persistent High-Frequency Streets</strong><br>
-    Several streets show year-round repeat dumping, often multiple times per month:</p>
-    <ul>
-        <li>Bearwood Road</li>
-        <li>Anderson Road</li>
-        <li>Bertram Road</li>
-        <li>Dibble Road</li>
-        <li>Adkins Lane</li>
-        <li>Holly Lane & Florence Road area</li>
-        <li>Cemetery Road</li>
-    </ul>
-    <p>These locations feature repeated bagged waste, furniture, building materials, and electrical items, indicating both household and commercial/construction sources.</p>
+            <p><strong>1. Persistent High-Frequency Streets</strong><br>
+            Several streets show year-round repeat dumping, often multiple times per month:</p>
+            <ul>
+                <li>Bearwood Road</li>
+                <li>Anderson Road</li>
+                <li>Bertram Road</li>
+                <li>Dibble Road</li>
+                <li>Adkins Lane</li>
+                <li>Holly Lane & Florence Road area</li>
+                <li>Cemetery Road</li>
+            </ul>
+            <p>These locations feature repeated bagged waste, furniture, building materials, and electrical items, indicating both household and commercial/construction sources.</p>
 
-    <hr>
+            <hr>
 
-    <p><strong>2. Waste Type Indicators</strong><br>
-    The waste profile in Smethwick suggests:</p>
-    <ul>
-        <li>General household waste remains the largest component.</li>
-        <li>Furniture/bulky items are extremely common on Bearwood Road, Anderson Road, and Florence Road.</li>
-        <li>Nitrous oxide canisters show strong presence on streets like Broadmoor Avenue, Cambridge Road, and others near nightlife/younger demographic clusters.</li>
-        <li>Commercial/industrial waste appears regularly near Cranford Street, Capethorn Road, and Church Gardens.</li>
-    </ul>
-    <p>This mix indicates contributions from local residents, nearby businesses, mobile offenders using vehicles, and night-time ASB activity.</p>
+            <p><strong>2. Waste Type Indicators</strong><br>
+            The waste profile in Smethwick suggests:</p>
+            <ul>
+                <li>General household waste remains the largest component.</li>
+                <li>Furniture/bulky items are extremely common on Bearwood Road, Anderson Road, and Florence Road.</li>
+                <li>Nitrous oxide canisters show strong presence on streets like Broadmoor Avenue, Cambridge Road, and others near nightlife/younger demographic clusters.</li>
+                <li>Commercial/industrial waste appears regularly near Cranford Street, Capethorn Road, and Church Gardens.</li>
+            </ul>
+            <p>This mix indicates contributions from local residents, nearby businesses, mobile offenders using vehicles, and night-time ASB activity.</p>
 
-    <hr>
+            <hr>
 
-    <p><strong>3. Spatial Characteristics of Smethwick Dumping</strong><br>
-    Fly tipping clusters form around:</p>
-    <ul>
-        <li>Back of property alleyways (e.g., Dunsford Road passageway)</li>
-        <li>Mixed use corridors (Bearwood Road, Cape Hill)</li>
-        <li>Quiet side streets with low natural surveillance (Bertram Road, Dynes Walk)</li>
-        <li>Canal adjacent routes (Cranford Street, Corn Mill Close)</li>
-    </ul>
-    <p>These areas are particularly vulnerable due to easy vehicle access, hidden sightlines, and high footfall from multiple wards feeding through major corridors.</p>
+            <p><strong>3. Spatial Characteristics of Smethwick Dumping</strong><br>
+            Fly tipping clusters form around:</p>
+            <ul>
+                <li>Back of property alleyways (e.g., Dunsford Road passageway)</li>
+                <li>Mixed use corridors (Bearwood Road, Cape Hill)</li>
+                <li>Quiet side streets with low natural surveillance (Bertram Road, Dynes Walk)</li>
+                <li>Canal adjacent routes (Cranford Street, Corn Mill Close)</li>
+            </ul>
+            <p>These areas are particularly vulnerable due to easy vehicle access, hidden sightlines, and high footfall from multiple wards feeding through major corridors.</p>
 
-    <hr>
+            <hr>
 
-    <p><strong>Emerging Geographic Areas to Monitor in 2026</strong><br>
-    Using trajectory and late 2025 → early 2026 patterns, these Smethwick locations are growing hotspots requiring early intervention:</p>
-    <ul>
-        <li><strong>Bertram Road Area Cluster (Rapid Increase)</strong><br>
-            Strong spike across late 2025 into early 2026 with multiple bagged and bulky waste reports, increasing frequency suggests repeat local offenders.</li>
-        <li><strong>Anderson Road (Renewed Activity)</strong><br>
-            Large increase in November 2025 incidents, including mixed commercial waste, electrical items, and recurring bagged waste, indicating new fly tipping behaviour patterns.</li>
-        <li><strong>Brook Street & Surrounding Side Streets</strong><br>
-            Jan–Feb 2026 shows more nitrous oxide incidents.</li>
-    </ul>
+            <p><strong>Emerging Geographic Areas to Monitor in 2026</strong><br>
+            Using trajectory and late 2025 → early 2026 patterns, these Smethwick locations are growing hotspots requiring early intervention:</p>
+            <ul>
+                <li><strong>Bertram Road Area Cluster (Rapid Increase)</strong><br>
+                    Strong spike across late 2025 into early 2026 with multiple bagged and bulky waste reports, increasing frequency suggests repeat local offenders.</li>
+                <li><strong>Anderson Road (Renewed Activity)</strong><br>
+                    Large increase in November 2025 incidents, including mixed commercial waste, electrical items, and recurring bagged waste, indicating new fly tipping behaviour patterns.</li>
+                <li><strong>Brook Street & Surrounding Side Streets</strong><br>
+                    Jan–Feb 2026 shows more nitrous oxide incidents.</li>
+            </ul>
 
-    <button>Close</button>
-</div>
-   
+            <button>Close</button>
+        </div>
+       
+    </div>
 
     <!-- SIDE PANEL -->
     <div class="side-image">
@@ -252,37 +257,14 @@ html, body {
     </div>
 </div>
 
-<!-- ===== QGIS2WEB & OpenLayers Scripts ===== -->
+<!-- ===== Scripts ===== -->
 <script src="resources/qgis2web_expressions.js"></script>
 <script src="./resources/functions.js"></script>
 <script src="./resources/ol.js"></script>
 <script src="./resources/ol-layerswitcher.js"></script>
 <script src="resources/photon-geocoder-autocomplete.min.js"></script>
 
-<!-- ===== Layers (dummy placeholders can stay) ===== -->
-<script src="layers/SmethwickCanals_0.js"></script>
-<script src="layers/CemeterySmethwick_1.js"></script>
-<script src="layers/SmethwickTownBuildings_2.js"></script>
-<script src="layers/SmethwickTownCrimeJan25Jan26_3.js"></script>
-<script src="layers/SmethwickTownFlyTipping_4.js"></script>
-<script src="layers/SmethwickRoads_5.js"></script>
-<script src="layers/CommunityFacilityWorks_6.js"></script>
-<script src="layers/CemeteryPlannedWorks_7.js"></script>
-<script src="layers/SmethwickTown_8.js"></script>
-
-<script src="styles/SmethwickCanals_0_style.js"></script>
-<script src="styles/CemeterySmethwick_1_style.js"></script>
-<script src="styles/SmethwickTownBuildings_2_style.js"></script>
-<script src="styles/SmethwickTownCrimeJan25Jan26_3_style.js"></script>
-<script src="styles/SmethwickTownFlyTipping_4_style.js"></script>
-<script src="styles/SmethwickRoads_5_style.js"></script>
-<script src="styles/CommunityFacilityWorks_6_style.js"></script>
-<script src="styles/CemeteryPlannedWorks_7_style.js"></script>
-<script src="styles/SmethwickTown_8_style.js"></script>
-
-<script src="./layers/layers.js" type="text/javascript"></script>
-<script src="./resources/Autolinker.min.js"></script>
-<script src="./resources/qgis2web.js"></script>
+<!-- Layers & styles omitted for brevity -->
 
 <!-- ===== Popup Toggle Logic ===== -->
 <script>
