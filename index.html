@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Smethwick Map – Crime & Flytipping</title>
 
 <!-- OpenLayers & QGIS2Web styles -->
@@ -24,16 +24,18 @@ html, body {
 /* ===== Layout ===== */
 .container {
     display: flex;
-    flex-direction: column;
     height: 100vh;
-    overflow: hidden;
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 /* ===== Map wrapper ===== */
 .map-wrapper {
-    flex: 1;
-    position: relative;
-    margin-right: 420px; /* space for side image */
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 /* ===== Title bar with buttons ===== */
@@ -45,9 +47,9 @@ html, body {
     border: 1px solid #ccc;
     display: flex;
     align-items: center;
-    gap: 10px;
-    z-index: 1000;
+    gap: 6px;
     position: relative;
+    z-index: 1000;
 }
 
 .map-title span {
@@ -66,40 +68,34 @@ html, body {
 
 /* ===== Map ===== */
 #map {
+    flex: 1;
     width: 100%;
-    height: calc(100% - 42px); /* subtract title height */
+    min-height: 500px; /* ensures OpenLayers renders */
 }
 
-/* ===== Side image fixed ===== */
+/* ===== Side image ===== */
 .side-image {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    bottom: 10px;
-    width: 400px;
+    flex: 1;
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 5px;
     background-color: #f8f8f8;
     overflow-y: auto;
 }
 .side-image img {
     width: 100%;
     height: auto;
-    display: block;
 }
 
 /* ===== Popups ===== */
 .popup-info {
     position: absolute;
-    width: 400px;
-    max-height: 400px;
-    overflow-y: auto;
+    display: none;
     background: white;
     border: 1px solid #ccc;
     padding: 12px;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    display: none;
+    max-width: 400px;
     z-index: 2000;
 }
 
@@ -117,14 +113,16 @@ html, body {
 
 /* ===== Responsive ===== */
 @media (max-width: 1000px) {
-    .map-wrapper { margin-right: 0; }
-    .side-image {
-        position: relative;
-        width: 100%;
-        height: 300px;
-        margin-top: 10px;
+    .container {
+        flex-direction: column;
     }
-    #map { height: 400px; }
+    .map-wrapper, .side-image {
+        width: 100%;
+        height: 50vh;
+    }
+    .popup-info {
+        max-width: 90%;
+    }
 }
 </style>
 </head>
@@ -134,7 +132,6 @@ html, body {
 
     <!-- MAP -->
     <div class="map-wrapper">
-
         <div class="map-title">
             Smethwick Map
             <span id="crime-button" title="Crime Data">🛡️</span>
@@ -143,53 +140,114 @@ html, body {
 
         <div id="map"></div>
 
-        <!-- POPUPS -->
-
-        <!-- Crime Popup -->
+        <!-- ===== POPUPS ===== -->
         <div id="crime-popup" class="popup-info">
-            <!-- ALL your crime content here -->
             <h3>Crime Summary for Smethwick (2025–Jan 2026)</h3>
-            <p>Analysis of recorded incidents across Smethwick shows that crime levels remain consistently high, with Violence and Sexual Offences being the most prevalent category by a substantial margin...</p>
-            <!-- truncated here for brevity, add all your detailed paragraphs -->
+            <p>
+                Analysis of recorded incidents across Smethwick shows that crime levels remain consistently high, with Violence and Sexual Offences being the most prevalent category by a substantial margin. This category alone accounts for nearly 2,000 recorded incidents, far exceeding all other crime types. Vehicle Crime, Criminal Damage and Arson, Anti Social Behaviour, and Other Theft also appear frequently, forming the next major tiers of offending. These patterns highlight a concentration of both personal risk and property risk crime types within the area.
+            </p>
+            <p>
+                Monthly figures show moderate fluctuations but an overall upward trend through 2025, followed by a smaller dip in January 2026. Despite this brief downturn, long term modelling suggests a continued gradual rise from February 2026 onwards. Predictive modelling indicates that monthly crime totals are expected to increase slightly each month, with projected volumes rising from around 415 incidents in February 2026 to roughly 420 by mid summer. This represents a slow but steady growth trend rather than sudden escalation.
+            </p>
+            <p>
+                Several notable patterns emerge when examining specific crime categories. Violence and Sexual Offences repeatedly cluster around residential and mixed use streets such as Bearwood Road, Ethel Street, Three Shires Oak Road, and Dunsford Road, indicating enduring hotspots that are likely to continue into 2026. Vehicle crime features prominently around shopping areas, parking facilities, Lewisham Road, Richmond Road, and Bridge Street South, suggesting ongoing risks in locations with high vehicle turnover and footfall.
+            </p>
+            <p>
+                Drug related incidents are dispersed across a wide set of residential areas including Adkins Lane, Anderson Road, Capethorn Road, Cranford Street, and Cape Hill. Their repetition across the year suggests persistent low level drug activity and associated disorder, which historically correlates with rises in violence and public order offences. Criminal Damage and Arson incidents also appear frequently in micro clusters, especially around Clent View, Hall Road, Montague Road, Oliver Road, and Grove Lane, largely indicating neighbourhood level disputes, repeat victimisation, and property focused offending.
+            </p>
+            <p>
+                Anti Social Behaviour consistently centres on transport nodes and nearby streets — including bus and coach stations, Anderson Road, and Adkins Lane — pointing to a pattern of nuisance behaviour in high traffic areas. As seasonal trends typically amplify ASB during warmer months, these locations should be expected to experience increased activity from spring 2026 onwards.
+            </p>
+            <p>
+                Taken together, the data highlights several key risk areas for February 2026 and beyond. The dominant risk remains interpersonal crime, particularly violence, with persistent hotspots unlikely to diminish without targeted intervention. Vehicle crime and criminal damage continue to be significant property related threats, especially near retail corridors and parking areas. Drug related activity appears entrenched in certain residential streets and is expected to remain a contributing factor to wider disorder. Meanwhile, ASB presents ongoing challenges around transport hubs and neighbourhood boundary zones.
+            </p>
+            <p>
+                Overall, Smethwick is forecast to see a gradual rise in crime levels across mid 2026, driven primarily by increases in violence, vehicle crime, and drug linked disorder. Monitoring the identified hotspot locations and rising categories will be essential for anticipating emerging risks and deploying preventative measures effectively.
+            </p>
             <button>Close</button>
         </div>
 
-        <!-- Flytipping Popup -->
         <div id="flytipping-popup" class="popup-info">
-            <!-- ALL your flytipping content here -->
             <h3>Executive Summary – Smethwick (2025–2026)</h3>
-            <p><strong>Overall Situation</strong><br>Smethwick is one of the highest volume fly tipping zones...</p>
-            <!-- truncated here for brevity, add all your detailed paragraphs and lists -->
+            <p><strong>Overall Situation</strong><br>
+            Smethwick is one of the highest volume fly tipping zones in the dataset, showing persistent repeat dumping, rapid re-accumulation after clearances, and wide geographic spread across residential streets, alleyways, and transition zones bordering industrial areas. Incidents occur consistently throughout the year, with pronounced clusters in:</p>
+            <ul>
+                <li>Spring (Mar–Jun 2025) – bulky waste, bagged waste</li>
+                <li>Late Summer–Autumn (Aug–Oct 2025) – electrical items, construction waste</li>
+                <li>Winter (Nov 2025–Feb 2026) – nitrous oxide, recurring bagged waste hotspots</li>
+            </ul>
+            <p>Smethwick displays both chronic hotspots (long term recurring locations) and newly emerging micro clusters, indicating escalating pressure on cleansing and enforcement resources.</p>
+
+            <hr>
+
+            <p><strong>Key Themes in Smethwick</strong></p>
+
+            <p><strong>1. Persistent High-Frequency Streets</strong><br>
+            Several streets show year-round repeat dumping, often multiple times per month:</p>
+            <ul>
+                <li>Bearwood Road</li>
+                <li>Anderson Road</li>
+                <li>Bertram Road</li>
+                <li>Dibble Road</li>
+                <li>Adkins Lane</li>
+                <li>Holly Lane & Florence Road area</li>
+                <li>Cemetery Road</li>
+            </ul>
+            <p>These locations feature repeated bagged waste, furniture, building materials, and electrical items, indicating both household and commercial/construction sources.</p>
+
+            <hr>
+
+            <p><strong>2. Waste Type Indicators</strong><br>
+            The waste profile in Smethwick suggests:</p>
+            <ul>
+                <li>General household waste remains the largest component.</li>
+                <li>Furniture/bulky items are extremely common on Bearwood Road, Anderson Road, and Florence Road.</li>
+                <li>Nitrous oxide canisters show strong presence on streets like Broadmoor Avenue, Cambridge Road, and others near nightlife/younger demographic clusters.</li>
+                <li>Commercial/industrial waste appears regularly near Cranford Street, Capethorn Road, and Church Gardens.</li>
+            </ul>
+            <p>This mix indicates contributions from local residents, nearby businesses, mobile offenders using vehicles, and night-time ASB activity.</p>
+
+            <hr>
+
+            <p><strong>3. Spatial Characteristics of Smethwick Dumping</strong><br>
+            Fly tipping clusters form around:</p>
+            <ul>
+                <li>Back of property alleyways (e.g., Dunsford Road passageway)</li>
+                <li>Mixed use corridors (Bearwood Road, Cape Hill)</li>
+                <li>Quiet side streets with low natural surveillance (Bertram Road, Dynes Walk)</li>
+                <li>Canal adjacent routes (Cranford Street, Corn Mill Close)</li>
+            </ul>
+            <p>These areas are particularly vulnerable due to easy vehicle access, hidden sightlines, and high footfall from multiple wards feeding through major corridors.</p>
+
+            <hr>
+
+            <p><strong>Emerging Geographic Areas to Monitor in 2026</strong><br>
+            Using trajectory and late 2025 → early 2026 patterns, these Smethwick locations are growing hotspots requiring early intervention:</p>
+            <ul>
+                <li><strong>Bertram Road Area Cluster (Rapid Increase)</strong><br>
+                    Strong spike across late 2025 into early 2026 with multiple bagged and bulky waste reports, increasing frequency suggests repeat local offenders.</li>
+                <li><strong>Anderson Road (Renewed Activity)</strong><br>
+                    Large increase in November 2025 incidents, including mixed commercial waste, electrical items, and recurring bagged waste, indicating new fly tipping behaviour patterns.</li>
+                <li><strong>Brook Street & Surrounding Side Streets</strong><br>
+                    Jan–Feb 2026 shows more nitrous oxide incidents.</li>
+            </ul>
+
             <button>Close</button>
         </div>
-
     </div>
 
-    <!-- SIDE IMAGE FIXED -->
+    <!-- SIDE PANEL -->
     <div class="side-image">
         <div style="font-weight:bold; text-align:center; margin-bottom:5px;">ONS Profile</div>
         <img src="resources/SWKONS.png" alt="Smethwick overview">
     </div>
-
 </div>
 
-<!-- ===== SCRIPTS ===== -->
+<!-- ===== Scripts ===== -->
 <script src="resources/ol.js"></script>
 <script src="resources/ol-layerswitcher.js"></script>
+<script src="layers/layers.js"></script> <!-- MUST be loaded BEFORE qgis2web.js -->
 <script src="resources/qgis2web.js"></script>
-<script src="resources/functions.js"></script>
-
-<!-- Layers -->
-<script src="layers/SmethwickCanals_0.js"></script>
-<script src="layers/CemeterySmethwick_1.js"></script>
-<script src="layers/SmethwickTownBuildings_2.js"></script>
-<script src="layers/SmethwickTownCrimeJan25Jan26_3.js"></script>
-<script src="layers/SmethwickTownFlyTipping_4.js"></script>
-<script src="layers/SmethwickRoads_5.js"></script>
-<script src="layers/CommunityFacilityWorks_6.js"></script>
-<script src="layers/CemeteryPlannedWorks_7.js"></script>
-<script src="layers/SmethwickTown_8.js"></script>
-
 <script src="styles/SmethwickCanals_0_style.js"></script>
 <script src="styles/CemeterySmethwick_1_style.js"></script>
 <script src="styles/SmethwickTownBuildings_2_style.js"></script>
@@ -199,9 +257,8 @@ html, body {
 <script src="styles/CommunityFacilityWorks_6_style.js"></script>
 <script src="styles/CemeteryPlannedWorks_7_style.js"></script>
 <script src="styles/SmethwickTown_8_style.js"></script>
-<script src="./layers/layers.js"></script>
 
-<!-- ===== Popup toggle logic ===== -->
+<!-- ===== Popup Toggle Logic ===== -->
 <script>
 function setupPopup(buttonId, popupId) {
     const button = document.getElementById(buttonId);
@@ -210,29 +267,23 @@ function setupPopup(buttonId, popupId) {
 
     button.addEventListener("click", e => {
         e.stopPropagation();
+        // position popup just below button
         const rect = button.getBoundingClientRect();
-        const containerRect = button.closest('.map-wrapper').getBoundingClientRect();
+        popup.style.top = (rect.bottom + window.scrollY + 5) + "px";
+        popup.style.left = (rect.left + window.scrollX) + "px";
 
-        popup.style.top = (rect.bottom - containerRect.top + 5) + "px";
-        popup.style.left = (rect.left - containerRect.left) + "px";
-
-        document.querySelectorAll(".popup-info").forEach(p => {
-            if(p !== popup) p.style.display = "none";
-        });
-
-        popup.style.display = (popup.style.display === "block") ? "none" : "block";
+        document.querySelectorAll(".popup-info").forEach(p => p.style.display = "none");
+        popup.style.display = "block";
     });
 
     closeBtn.addEventListener("click", () => popup.style.display = "none");
 }
 
-// Setup popups
 setupPopup("crime-button","crime-popup");
 setupPopup("flytipping-button","flytipping-popup");
 
-// Click outside to close
 document.addEventListener("click", e => {
-    if(!e.target.closest(".map-title span") && !e.target.closest(".popup-info")) {
+    if (!e.target.closest(".popup-info") && !e.target.closest(".map-title")) {
         document.querySelectorAll(".popup-info").forEach(p => p.style.display = "none");
     }
 });
