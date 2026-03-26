@@ -7,11 +7,11 @@
 <title>Smethwick Map – Crime & Flytipping</title>
 
 <!-- OpenLayers & QGIS2Web styles -->
-resources/ol.css
-resources/fontawesome-all.min.css
-<link rel="stylesheet" href="resources/photon-geocoder-autocomplete.min.css">
-<link rel="stylesheet" href="resources/ol-layerswitcher.css">
-<link rel="stylesheet" href="resources/qgis2web.css">
+<link rel="stylesheet" href="./resources/ol.css">
+<link rel="stylesheet" href="resources/fontawesome-all.min.css">
+<link href="resources/photon-geocoder-autocomplete.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+<link rel="stylesheet" href="./resources/qgis2web.css">
 
 <style>
 html, body {
@@ -21,6 +21,7 @@ html, body {
     background-color: #ffffff;
 }
 
+/* ===== Layout ===== */
 .container {
     display: flex;
     height: 100vh;
@@ -29,6 +30,7 @@ html, body {
     box-sizing: border-box;
 }
 
+/* ===== Map wrapper ===== */
 .map-wrapper {
     flex: 2;
     display: flex;
@@ -36,6 +38,7 @@ html, body {
     height: 100%;
 }
 
+/* ===== Title bar with buttons ===== */
 .map-title {
     font-size: 18px;
     font-weight: bold;
@@ -61,11 +64,13 @@ html, body {
     cursor: pointer;
 }
 
+/* ===== Map ===== */
 #map {
     flex: 1;
     width: 100%;
 }
 
+/* ===== Side image ===== */
 .side-image {
     flex: 1;
     border: 1px solid #ccc;
@@ -73,12 +78,12 @@ html, body {
     background-color: #f8f8f8;
     overflow-y: auto;
 }
-
 .side-image img {
     width: 100%;
     height: auto;
 }
 
+/* ===== Popups ===== */
 .popup-info {
     position: absolute;
     top: 60px;
@@ -90,6 +95,7 @@ html, body {
     border: 1px solid #ccc;
     padding: 12px;
     border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     display: none;
     z-index: 2000;
 }
@@ -97,7 +103,6 @@ html, body {
 .popup-info button {
     margin-top: 10px;
     padding: 6px 10px;
-    background: #444;
     color: white;
     border: none;
     border-radius: 4px;
@@ -105,12 +110,21 @@ html, body {
 }
 
 #crime-popup button { background-color: #dc3545; }
-#flytipping-popup button { background-color: #ff8800; }
+#flytipping-popup button { background-color: #ff8800; color: #fff; }
 
-@media (max-width:800px) {
-    .container { flex-direction: column; }
-    .map-wrapper, .side-image { height: 50vh; width: 100%; }
-    .popup-info { width: 90%; left: 5%; }
+/* ===== Responsive ===== */
+@media (max-width: 800px) {
+    .container {
+        flex-direction: column;
+    }
+    .map-wrapper, .side-image {
+        height: 50vh;
+        width: 100%;
+    }
+    .popup-info {
+        width: 90%;
+        left: 5%;
+    }
 }
 </style>
 </head>
@@ -118,6 +132,7 @@ html, body {
 
 <div class="container">
 
+    <!-- MAP -->
     <div class="map-wrapper">
 
         <div class="map-title">
@@ -133,86 +148,66 @@ html, body {
             </div>
         </div>
 
-        <!-- CLEAN NARRATIVE POPUP -->
+        <!-- ===== POPUPS ===== -->
         <div id="crime-popup" class="popup-info">
-            <h3>Crime Summary for Smethwick (2025–Jan 2026)</h3>
-
-            <p>
-            Crime levels across Smethwick remain consistently high. Violence and Sexual Offences form the
-            largest category with nearly 2,000 recorded incidents. Other frequent categories include Vehicle Crime,
-            Criminal Damage and Arson, Anti‑Social Behaviour, and Theft.
-            </p>
-
-            <p>
-            Monthly crime totals show moderate variation but a general upward trend through 2025, followed by a slight
-            dip in January 2026. Forecasting suggests a gradual rise from February 2026 onward, with monthly totals
-            increasing from around 415 to approximately 420 by mid‑summer.
-            </p>
-
-            <p>
-            Recurring hotspots include Bearwood Road, Ethel Street, Three Shires Oak Road, and Dunsford Road for violent
-            crime. Vehicle crime is common around shopping areas, parking facilities, Lewisham Road, Richmond Road, and
-            Bridge Street South.
-            </p>
-
-            <p>
-            Drug‑related incidents are spread across residential streets such as Adkins Lane, Anderson Road, Capethorn
-            Road, Cranford Street, and Cape Hill. Criminal Damage and Arson cluster around Clent View, Hall Road,
-            Montague Road, Oliver Road, and Grove Lane.
-            </p>
-
-            <p>
-            Anti‑Social Behaviour often occurs near transport hubs and on streets including Anderson Road and Adkins Lane,
-            with levels likely to increase in the warmer months. Overall, crime is expected to continue rising slowly
-            through mid‑2026, particularly in violence, vehicle crime, and drug‑related disorder.
-            </p>
-
-            <button>Close</button>
-        </div>
-
-        <!-- FLY TIPPING POPUP (unchanged) -->
-        <div id="flytipping-popup" class="popup-info">
-            <h3>Flytipping Summary – Dummy Data</h3>
+            <h3>🚨 Crime Summary – Dummy Data</h3>
             <ul>
-                <li>Total incidents: 27</li>
-                <li>Reported locations: 15</li>
-                <li>Resolved: 10</li>
-                <li>Pending: 17</li>
+                <li>Total incidents: 42</li>
+                <li>Violence: 12</li>
+                <li>Theft: 8</li>
+                <li>Anti-social behaviour: 15</li>
+                <li>Other: 7</li>
             </ul>
             <button>Close</button>
         </div>
 
+        <div id="flytipping-popup" class="popup-info">
+            <h3>🗑️ Flytipping Summary – Dummy</ul>
+            <button>Close</button>
+        </div>
+
     </div>
 
+    <!-- SIDE PANEL -->
     <div class="side-image">
         <div style="font-weight:bold; text-align:center; margin-bottom:5px;">ONS Profile</div>
-        <img src="resources/SWKONS.png" alt="Smethwick overview">
+        resources/SWKONS.png
     </div>
-
 </div>
 
-<!-- Scripts -->
-<script src="resources/qgis2web_expressions.js"></script>
-<script src="resources/functions.js"></script>
-<script src="resources/ol.js"></script>
-<script src="ipt>
-<script src="layers/SmethwickTownCrimeJan/SmethwickTownFlyTipping_4.js</script>
-<script src="layers/SmethwickRoads_
+<!-- ===== QGIS2WEB & OpenLayers Scripts ===== -->
+resources/qgis2web_expressions.js</script>
+./resources/functions.js</script>
+./resources/ol.js</script>
+./resources/ol-layerswitcher.js</script>
+resources/photon-geocoder-autocomplete.min.js</script>
+
+<!-- ===== Layers ===== -->
+layers/SmethwickCanals_0.js</script>
+layers/CemeterySmethwick_1.js</script>
+layers/SmethwickTownBuildings_2.js</script>
+layers/SmethwickTownCrimeJan25Jan26_3.js</script>
+layers/SmethwickTownFlyTipping_4.js</script>
+layers/SmethwickRoads_5.js</script>
 layers/CommunityFacilityWorks_6.js</script>
-<script src="layers/CemeteryPlannedWorks_7.js"></script>
-<script src="layers/SmethwickTown_8.js"></script>
+layers/CemeteryPlannedWorks_7.js</script>
+layers/SmethwickTown_8.js</script>
 
-<!-- Styles -->
-<script src="styles/SmethwickCanals_0_style.js"></script>
-<script src="styles/CemeterySmethwick_1_style.js"></script>
-<script src="styles/SmethwickTownBuildings_2_style.js"></script>
-<script src="styles/SmethwickTownCrimeJan25Jan26_3_style.js"></script>
-<script src="styles/SmethwickTownFlyTipping_4_stylele.js"></script>
-<script src="styles/CemeteryPlannedWorks_7_style.js"></script>
-<script src="styles/SmethwickTown_8_style.js"></script>
+<script src="styles/Smethwicke.js</script>
+styles/CemeterySmethwick_1_style.js</script>
+styles/SmethwickTownBuildings_2_style.js</script>
+styles/SmethwickTownCrimeJan25Jan26_3_style.js</script>
+styles/SmethwickTownFlyTipping_4_style.js</script>
+styles/SmethwickRoads_5_style.js</script>
+styles/CommunityFacilityWorks_6_style.js</script>
+styles/CemeteryPlannedWorks_7_style.js</script>
+styles/SmethwickTown_8_style.js</script>
 
-<script src="layers/layers.js="resources/qgis2web.js"></script>
+./layers/layers.js</script>
+./resources/Autolinker.min.js</script>
+./resources/qgis2web.js</script>
 
+<!-- ===== Popup Toggle Logic ===== -->
 <script>
 function setupPopup(buttonId, popupId) {
     const button = document.getElementById(buttonId);
