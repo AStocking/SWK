@@ -6,9 +6,6 @@
 <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
 <title>Smethwick Map – Crime & Flytipping</title>
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="resources/SWKONS.png">
-
 <!-- OpenLayers & QGIS2Web styles -->
 <link rel="stylesheet" href="./resources/ol.css">
 <link rel="stylesheet" href="resources/fontawesome-all.min.css">
@@ -41,7 +38,7 @@ html, body {
     height: 100%;
 }
 
-/* ===== Title Bar ===== */
+/* ===== Title bar with buttons ===== */
 .map-title {
     font-size: 18px;
     font-weight: bold;
@@ -73,7 +70,7 @@ html, body {
     width: 100%;
 }
 
-/* ===== Side Image ===== */
+/* ===== Side image ===== */
 .side-image {
     flex: 1;
     border: 1px solid #ccc;
@@ -81,13 +78,12 @@ html, body {
     background-color: #f8f8f8;
     overflow-y: auto;
 }
-
 .side-image img {
     width: 100%;
     height: auto;
 }
 
-/* ===== Popup Boxes ===== */
+/* ===== Popups ===== */
 .popup-info {
     position: absolute;
     top: 60px;
@@ -114,7 +110,7 @@ html, body {
 }
 
 #crime-popup button { background-color: #dc3545; }
-#flytipping-popup button { background-color: #ff8800; }
+#flytipping-popup button { background-color: #ff8800; color: #fff; }
 
 /* ===== Responsive ===== */
 @media (max-width: 800px) {
@@ -136,7 +132,7 @@ html, body {
 
 <div class="container">
 
-    <!-- MAP SECTION -->
+    <!-- MAP -->
     <div class="map-wrapper">
 
         <div class="map-title">
@@ -159,12 +155,7 @@ html, body {
             <ul style="padding-left:18px;">
                 <li>
                     <span style="color:#d80000;font-weight:bold;">🔴 High Risk – Violence & Sexual Offences</span><br>
-                    • Nearly 2,000 incidents<br>
-                    • Hotspots: Bearwood Rd, Ethel St, Three Shires Oak Rd, Dunsford Rd
-                </li><br>
-
-                <li>
-                    <span style="color:#ff8800;font-weight:bold;">🟠 Medium‑High Risk – Vehicle Crime</span><br>
+                    • Nearly 2,000t:bold;">🟠 Medium‑High Risk – Vehicle Crime</span><br>
                     • Retail areas, parking sites, Lewisham Rd, Richmond Rd, Bridge St South
                 </li><br>
 
@@ -193,7 +184,7 @@ html, body {
             <button>Close</button>
         </div>
 
-        <!-- FLY TIPPING POPUP (unchanged) -->
+        <!-- FLYTIPPING POPUP (unchanged) -->
         <div id="flytipping-popup" class="popup-info">
             <h3>🗑️ Flytipping Summary – Dummy Data</h3>
             <ul>
@@ -209,25 +200,34 @@ html, body {
 
     <!-- SIDE PANEL -->
     <div class="side-image">
-        <div style="font-weight:bold;text-align:center;margin-bottom:5px;">ONS Profile</div>
-        <img src="resources/SWKONS.png" alt="Smethwick overview">
+        <div style="font-weight:bold; text-align:center; margin-bottom:5px;">ONS Profile</div>
+        resources/SWKONS.png
     </div>
-
 </div>
 
-<!-- QGIS2WEB / OL SCRIPTS (required order) -->
-<script src="resources/qgis2web_expressions.js"></script>
-<scriptTownBuildings_2Jan26_3.js</script>
-<script src="ickTownFlyTipping_4.js</script>
-layers/SmethwickRoads_5.js</script>
-<scriptCommunityFacilityWorks_6.js</script>
-layers/CemeteryPlannedWorks_7.js</script>
-<script src="layers/SmethwickTown_
+<!-- ===== QGIS2WEB & OL SCRIPTS ===== -->
+resources/qgis2web_expressions.js</script>
+./resources/functions.js</script>
+./resources/ol.js</script>
+./resources/ol-layerswitcher.js</script>
+<script srchoton-geocoder-autocomplete.min.js</script>
 
-<!-- STYLES -->
+<!-- ===== Layers ===== -->
+layers/SmethwickCanals_0.js</script>
+layers/CemeterySmethwick_1.js</script>
+layers/SmethwickTownBuildings_2.js</script>
+layers/SmethwickTownCrimeJan25Jan26_3.js</script>
+layers/SmethwickTownFlyTipping_4.js</script>
+layers/SmethwickRoads_5.js</script>
+layers/CommunityFacilityWorks_6.js</script>
+layers/CemeteryPlannedWorks_7.js</script>
+layers/SmethwickTown_8.js</script>
+
+<!-- ===== Styles ===== -->
 styles/SmethwickCanals_0_style.js</script>
-<script src="styles/CemeterySmethwick_1_style.js"></script>
-<script src="styles/SmethwickTownBuildingsSmethwickTownCrimeJan25Jan26_3_style.js</script>
+styles/CemeterySmethwick_1_style.js</script>
+styles/SmethwickTownBuildings_2_style.js</script>
+styles/SmethwickTownCrimeJan25Jan26_3_style.js</script>
 styles/SmethwickTownFlyTipping_4_style.js</script>
 styles/SmethwickRoads_5_style.js</script>
 styles/CommunityFacilityWorks_6_style.js</script>
@@ -238,7 +238,7 @@ styles/SmethwickTown_8_style.js</script>
 ./resources/Autolinker.min.js</script>
 ./resources/qgis2web.js</script>
 
-<!-- POPUP LOGIC -->
+<!-- Popup Logic -->
 <script>
 function setupPopup(buttonId, popupId) {
     const button = document.getElementById(buttonId);
